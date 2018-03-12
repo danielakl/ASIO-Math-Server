@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public final class Main {
     private static ServerType mode = ServerType.UDP;
-    private static int port = 80;
+    private static int port = 3000;
 
     public static void main(String[] args) {
         Server server;

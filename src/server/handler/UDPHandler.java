@@ -28,6 +28,7 @@ public final class UDPHandler implements Handler {
     @Override
     public void run() {
         String received = new String(packet.getData(), 0, packet.getLength());
+        received = received.replaceAll("[^0-9+\\-*/]","");
         packet = new DatagramPacket(buffer, Server.BUFFER_SIZE, clientAddress, clientPort);
         try {
             byte[] result = scriptEngine.eval(received).toString().getBytes();
