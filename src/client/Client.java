@@ -14,13 +14,23 @@ public final class Client {
         String hostname = scanner.nextLine();
         SocketAddress server = new InetSocketAddress(hostname, PORT); // new
 
-        byte[] buffer = new byte[512]; // new
+        byte[] buffer = new byte[1024]; // new
 
         try (DatagramSocket socket = new DatagramSocket()) {
-            String message = "Hello from client.";
-            System.arraycopy(message.getBytes(), 0, buffer, 0, Math.min(message.getBytes().length, buffer.length));
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, server);
-            socket.send(packet);
+            byte[] message;
+            do {
+                System.out.print("Calculate expression: ");
+                message = scanner.nextLine().getBytes();
+
+                System.arraycopy(message, 0, buffer, 0, Math.min(message.length, buffer.length));
+                DatagramPacket packet = new DatagramPacket(buffer, buffer.length, server);
+                socket.send(packet);
+
+                packet = new DatagramPacket(buffer, buffer.length);
+                socket.receive(packet);
+                String response = new String(packet.getData(), 0, packet.getLength());
+                System.out.println("Answer: " + response + "\n");
+            } while(message.length == 0);
         } catch (SocketException se) {
             System.err.println("Error: creating UDP socket.");
             se.printStackTrace();

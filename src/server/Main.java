@@ -29,7 +29,7 @@ public final class Main {
         System.out.println("Server will listen to port " + port + " and run '" + mode + "' mode.");
 
         /* Change settings. */
-        System.out.println("Change port or mode? (Y/N)");
+        System.out.print("Change port or mode? (Y/N): ");
         Scanner scanner = new Scanner(System.in);
         String answer = scanner.nextLine().toLowerCase();
         if (answer.contains("y")) {
@@ -51,7 +51,7 @@ public final class Main {
                         invalidMode = false;
                         break;
                     default:
-                        System.err.println("\nInvalid mode '" + answer + "'.");
+                        System.err.println("Invalid mode '" + answer + "'.");
                         invalidMode = true;
                         break;
                 }
@@ -60,7 +60,7 @@ public final class Main {
             // Enter new port.
             boolean invalidPort;
             do {
-                System.out.print("\nEnter the port to use: ");
+                System.out.print("Enter the port to use: ");
                 answer = scanner.nextLine().trim();
                 if (answer.equals("")) {
                     invalidPort = false;
@@ -92,13 +92,13 @@ public final class Main {
 //                break;
         }
         server.start();
-        System.out.println("Server started, enter exit to stop server.");
-
-        /* Shutdown server */
-        String input;
-        do {
-            input = scanner.nextLine().trim();
-        } while(input.equalsIgnoreCase("e") || input.equalsIgnoreCase("exit"));
+//        System.out.println("Server started, enter exit to stop server.");
+//
+//        /* Shutdown server */
+//        String input;
+//        do {
+//            input = scanner.nextLine().trim();
+//        } while(input.equalsIgnoreCase("e") || input.equalsIgnoreCase("exit"));
     }
 
     private static void processArg(String arg) {

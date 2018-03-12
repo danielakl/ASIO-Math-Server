@@ -17,6 +17,7 @@ public final class UDPServer extends Server {
             while (true) {
                 try {
                     DatagramPacket packet = new DatagramPacket(new byte[BUFFER_SIZE], BUFFER_SIZE);
+                    System.out.println("Waiting for packets.");
                     socket.receive(packet);
                     new Thread(new UDPHandler(socket, packet)).start();
                 } catch (IOException ioe) {
