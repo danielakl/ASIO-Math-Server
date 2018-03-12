@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SSL-Server">
+    <output-path>$PROJECT_DIR$/out/artifacts/SSL_Server</output-path>
+    <root id="archive" name="SSL-Server.jar">
+      <element id="directory" name="server">
+        <element id="file-copy" path="$PROJECT_DIR$/out/production/ASIO-Math-Server/server/Main.class" />
+        <element id="file-copy" path="$PROJECT_DIR$/out/production/ASIO-Math-Server/server/Server.class" />
+        <element id="file-copy" path="$PROJECT_DIR$/out/production/ASIO-Math-Server/server/TLSServer.class" />
+        <element id="directory" name="type">
+          <element id="file-copy" path="$PROJECT_DIR$/out/production/ASIO-Math-Server/server/type/ServerType.class" />
+        </element>
+        <element id="file-copy" path="$PROJECT_DIR$/out/production/ASIO-Math-Server/server/UDPServer.class" />
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/server/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>

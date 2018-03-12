@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SSL-Client">
+    <output-path>$PROJECT_DIR$/out/artifacts/SSL_Client</output-path>
+    <root id="archive" name="SSL-Client.jar">
+      <element id="directory" name="client">
+        <element id="file-copy" path="$PROJECT_DIR$/out/production/ASIO-Math-Server/client/Client.class" />
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/client/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>

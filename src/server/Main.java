@@ -82,23 +82,15 @@ public final class Main {
         /* Startup server */
         switch (mode) {
             default:
+                // Fallthrough.
             case UDP:
                 server = new UDPServer(port);
                 break;
             case TLS:
                 server = new TLSServer(port);
                 break;
-//            case ASIO:
-//                break;
         }
         server.start();
-//        System.out.println("Server started, enter exit to stop server.");
-//
-//        /* Shutdown server */
-//        String input;
-//        do {
-//            input = scanner.nextLine().trim();
-//        } while(input.equalsIgnoreCase("e") || input.equalsIgnoreCase("exit"));
     }
 
     private static void processArg(String arg) {
@@ -111,6 +103,9 @@ public final class Main {
             switch (arg) {
                 case "udp":
                     mode = ServerType.UDP;
+                    break;
+                case "tls":
+                    mode = ServerType.TLS;
                     break;
                 default:
                     break;

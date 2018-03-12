@@ -21,6 +21,22 @@ public final class Client {
         String hostname = scanner.nextLine();
         SocketAddress server = new InetSocketAddress(hostname, PORT); // new
 
+        System.out.print("UDP or TLS: ");
+        String mode = scanner.nextLine();
+        switch (mode.toLowerCase()) {
+            default:
+                // Fallthrough.
+            case "udp":
+                udpClient(server);
+                break;
+            case "tls":
+                tlsClient();
+                break;
+        }
+    }
+
+    private static void udpClient(SocketAddress server) {
+        Scanner scanner = new Scanner(System.in);
         byte[] buffer = new byte[1024]; // new
 
         try (DatagramSocket socket = new DatagramSocket()) {
