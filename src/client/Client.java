@@ -12,18 +12,66 @@ import java.util.logging.Logger;
 import javax.net.ssl.SSLSocketFactory;
 
 public final class Client {
-    private static final int PORT = 3000;
+    private static int port = 3000;
+    private static String mode = "udp";
 
     public static void main(String[] args) {
+        /* Process commandline arguments. */
+        switch (args.length) {
+            default:
+                // Fallthrough.
+            case 2:
+                String arg2 = args[1];
+                processArg(arg2);
+                // Fallthrough
+            case 1:
+                String arg1 = args[0];
+                processArg(arg1);
+                break;
+        }
+
         /* Read user input from CLI */
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the IP or hostname of the server to connect to: ");
-        String hostname = scanner.nextLine();
-        SocketAddress server = new InetSocketAddress(hostname, PORT); // new
+        String hostname = scanner.nextLine().trim();
+        SocketAddress server = new InetSocketAddress(hostname, port);
 
-        System.out.print("UDP or TLS: ");
-        String mode = scanner.nextLine();
-        switch (mode.toLowerCase()) {
+        // Print current settings.
+        System.out.println("Connecting to '" + hostname + "' at port '" + port + "' in '" + mode + "' mode.");
+
+        // Change settings.
+        System.out.print("Change these settings? (Y/N): ");
+        String answer = scanner.nextLine().toLowerCase();
+        if (answer.contains("y")) {
+            // Change hostname.
+            System.out.print("Hostname: ");
+            String input = scanner.nextLine().trim();
+            if (!input.equals("")) {
+                hostname = input;
+            }
+
+            // Change port.
+            do {
+                System.out.print("Port: ");
+                input = scanner.nextLine().trim();
+                if (!input.equals("")) {
+                    if (input.matches("[0-9]+")) {
+                        port = Integer.parseInt(input);
+                        if (port < 0 || port > 65535) {
+                            System.err.println("Port must be between valid range of 0 to 65535.");
+                        }
+                    }
+                }
+            } while (port < 0 || port > 65535);
+            server = new InetSocketAddress(hostname, port);
+
+            // Change mode.
+            System.out.print("UDP or TLS: ");
+            processArg(scanner.nextLine());
+        }
+
+        // Start client.
+        switch (mode) {
             default:
                 // Fallthrough.
             case "udp":
@@ -68,7 +116,7 @@ public final class Client {
         SSLSocketFactory sslSocketFactory =
                 (SSLSocketFactory)SSLSocketFactory.getDefault();
         try {
-            Socket socket = sslSocketFactory.createSocket("localhost", PORT);
+            Socket socket = sslSocketFactory.createSocket("localhost", port);
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             try (BufferedReader bufferedReader =
                          new BufferedReader(
@@ -89,6 +137,26 @@ public final class Client {
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName())
                     .log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void processArg(String arg) {
+        if (arg.matches("^[0-9]+$")) {
+            port = Integer.parseInt(arg);
+            if (port < 0 || port > 65535) {
+                port = 80;
+            }
+        } else {
+            switch (arg.toLowerCase()) {
+                case "udp":
+                    mode = "udp";
+                    break;
+                case "tls":
+                    mode = "tls";
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
