@@ -12,6 +12,7 @@ public final class UDPServer extends Server {
         super(port);
     }
 
+    @Override
     public void start() {
         try (DatagramSocket socket = new DatagramSocket(port)) {
             while (true) {
