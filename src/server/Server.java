@@ -1,12 +1,11 @@
 package server;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
-public abstract class Server implements Runnable {
+public abstract class Server {
     public static final int BUFFER_SIZE = 1024;
 
-    protected final AtomicBoolean running = new AtomicBoolean(true);
     protected int port;
+
+    public Server() { }
 
     public Server(int port) {
         if (port < 0 || port > 65535) {
@@ -15,10 +14,18 @@ public abstract class Server implements Runnable {
         this.port = port;
     }
 
-    public final void stop() {
-        running.set(false);
+    /**
+     * Sets the port the server will listen to.
+     * @param port - the port to set.
+     * @return true if the given port was within the valid range of 0 to 65535.
+     */
+    public final boolean setPort(int port) {
+        if (port >= 0 && port <= 65535) {
+            this.port = port;
+            return true;
+        }
+        return false;
     }
 
-    @Override
-    public abstract void run();
+    public abstract void start();
 }

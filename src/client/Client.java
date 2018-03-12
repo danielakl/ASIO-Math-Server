@@ -1,38 +1,32 @@
 package client;
 
-import java.net.DatagramSocket;
-import java.net.InetSocketAddress;
-import java.net.SocketAddress;
-import java.net.SocketException;
+import java.io.IOException;
+import java.net.*;
+import java.util.Scanner;
 
 public final class Client {
-    private static void udpClient(SocketAddress server) {
-        try (DatagramSocket socket = new DatagramSocket()) {
+    private static final int PORT = 3000;
 
+    public static void main(String[] args) {
+        /* Read user input from CLI */
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the IP or hostname of the server to connect to: ");
+        String hostname = scanner.nextLine();
+        SocketAddress server = new InetSocketAddress(hostname, PORT); // new
+
+        byte[] buffer = new byte[512]; // new
+
+        try (DatagramSocket socket = new DatagramSocket()) {
+            String message = "Hello from client.";
+            System.arraycopy(message.getBytes(), 0, buffer, 0, Math.min(message.getBytes().length, buffer.length));
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, server);
+            socket.send(packet);
         } catch (SocketException se) {
             System.err.println("Error: creating UDP socket.");
             se.printStackTrace();
-        }
-    }
-
-    private static void asioClient(SocketAddress server) {
-
-    }
-
-    public static void main(String[] args) {
-        String clientType = args[0].toLowerCase();
-        String hostname = args[1];
-        int port = Integer.parseInt(args[2]);
-        SocketAddress server = new InetSocketAddress(hostname, port);
-        switch (clientType) {
-            case "udp":
-                udpClient(server);
-                break;
-            case "asio":
-                asioClient(server);
-                break;
-            default:
-                break;
+        } catch (IOException ioe) {
+            System.err.println("Error: sending packet over socket.");
+            ioe.printStackTrace();
         }
     }
 }

@@ -36,11 +36,10 @@ public final class UDPHandler implements Handler {
             socket.send(packet);
         } catch (ScriptException se) {
             System.err.println("Error: Script engine failed to evaluate: " + received);
-            Thread.currentThread().interrupt();
+            se.printStackTrace();
         } catch (IOException ioe) {
             System.err.println("Error: Handler failed to communicating with client.");
             ioe.printStackTrace();
-            Thread.currentThread().interrupt();
         }
     }
 }
