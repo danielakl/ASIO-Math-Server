@@ -13,6 +13,8 @@ public final class Main {
 
         /* Process commandline arguments. */
         switch (args.length) {
+            default:
+                // Fallthrough.
             case 2:
                 String arg2 = args[1];
                 processArg(arg2);
@@ -20,8 +22,6 @@ public final class Main {
             case 1:
                 String arg1 = args[0];
                 processArg(arg1);
-                break;
-            default:
                 break;
         }
 
