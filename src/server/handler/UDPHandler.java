@@ -31,7 +31,8 @@ public final class UDPHandler implements Handler {
         received = received.replaceAll("[^0-9+\\-*/]","");
         packet = new DatagramPacket(buffer, Server.BUFFER_SIZE, clientAddress, clientPort);
         try {
-            byte[] result = scriptEngine.eval(received).toString().getBytes();
+            Object scriptEngineResult = scriptEngine.eval(received);
+            byte[] result = (scriptEngineResult == null) ? "Invalid Expression".getBytes() : scriptEngineResult.toString().getBytes();
             if (result.length > Server.BUFFER_SIZE) {
                 result = "Result too big.".getBytes();
             }
