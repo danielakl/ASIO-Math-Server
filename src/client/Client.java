@@ -93,9 +93,6 @@ public final class Client {
             do {
                 System.out.print("Calculate expression: ");
                 message = scanner.nextLine();
-                if (message.equalsIgnoreCase("e") || message.equalsIgnoreCase("exit")) {
-                    break;
-                }
                 byte[] byteMessage = message.getBytes();
 
                 System.arraycopy(byteMessage, 0, buffer, 0, Math.min(byteMessage.length, buffer.length));
@@ -106,7 +103,7 @@ public final class Client {
                 socket.receive(packet);
                 String response = new String(packet.getData(), 0, packet.getLength());
                 System.out.println("Answer: " + response + "\n");
-            } while(true);
+            } while(!(message.equalsIgnoreCase("e") || message.equalsIgnoreCase("exit") || message.length() != 0));
         } catch (SocketException se) {
             System.err.println("Error: creating UDP socket.");
             se.printStackTrace();
