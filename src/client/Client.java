@@ -1,14 +1,15 @@
 package client;
 
-import javax.net.ssl.SSLSocketFactory;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.*;
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.net.ssl.SSLSocketFactory;
 
 public final class Client {
     private static int port = 3000;
@@ -89,12 +90,16 @@ public final class Client {
         byte[] buffer = new byte[1024]; // new
 
         try (DatagramSocket socket = new DatagramSocket()) {
-            byte[] message;
+            String message;
             do {
                 System.out.print("Calculate expression: ");
-                message = scanner.nextLine().getBytes();
+                message = scanner.nextLine();
+                if (message.equalsIgnoreCase("e") || message.equalsIgnoreCase("exit")) {
+                    break;
+                }
+                byte[] byteMessage = message.getBytes();
 
-                System.arraycopy(message, 0, buffer, 0, Math.min(message.length, buffer.length));
+                System.arraycopy(byteMessage, 0, buffer, 0, Math.min(byteMessage.length, buffer.length));
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length, server);
                 socket.send(packet);
 
@@ -102,7 +107,7 @@ public final class Client {
                 socket.receive(packet);
                 String response = new String(packet.getData(), 0, packet.getLength());
                 System.out.println("Answer: " + response + "\n");
-            } while(message.length != 0);
+            } while(true);
         } catch (SocketException se) {
             System.err.println("Error: creating UDP socket.");
             se.printStackTrace();
