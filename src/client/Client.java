@@ -1,15 +1,14 @@
 package client;
 
-import java.io.IOException;
-import java.net.*;
-import java.util.Scanner;
+import javax.net.ssl.SSLSocketFactory;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.Socket;
+import java.net.*;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.net.ssl.SSLSocketFactory;
 
 public final class Client {
     private static int port = 3000;
@@ -103,7 +102,7 @@ public final class Client {
                 socket.receive(packet);
                 String response = new String(packet.getData(), 0, packet.getLength());
                 System.out.println("Answer: " + response + "\n");
-            } while(message.length == 0);
+            } while(message.length != 0);
         } catch (SocketException se) {
             System.err.println("Error: creating UDP socket.");
             se.printStackTrace();
