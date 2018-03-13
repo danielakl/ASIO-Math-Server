@@ -11,6 +11,10 @@
         </element>
         <element id="file-copy" path="$PROJECT_DIR$/out/production/ASIO-Math-Server/server/UDPServer.class" />
         <element id="file-copy" path="$PROJECT_DIR$/out/production/ASIO-Math-Server/server/Main$1.class" />
+        <element id="directory" name="handler">
+          <element id="file-copy" path="$PROJECT_DIR$/out/production/ASIO-Math-Server/server/handler/UDPHandler.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/out/production/ASIO-Math-Server/server/handler/Handler.class" />
+        </element>
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/META-INF/server/META-INF/MANIFEST.MF" />
