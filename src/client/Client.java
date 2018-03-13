@@ -28,6 +28,8 @@ public final class Client {
                 String arg1 = args[0];
                 processArg(arg1);
                 break;
+            case 0:
+                break;
         }
 
         /* Read user input from CLI */

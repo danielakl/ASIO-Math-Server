@@ -23,6 +23,8 @@ public final class Main {
                 String arg1 = args[0];
                 processArg(arg1);
                 break;
+            case 0:
+                break;
         }
 
         /* Print current settings. */
