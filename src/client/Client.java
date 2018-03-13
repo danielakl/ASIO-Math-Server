@@ -102,9 +102,9 @@ public final class Client {
 
                 packet = new DatagramPacket(buffer, buffer.length);
                 socket.receive(packet);
-                String response = new String(packet.getData(), 0, packet.getLength());
+                String response = new String(packet.getData(), 0, packet.getLength()).trim();
                 System.out.println("Answer: " + response + "\n");
-            } while(!(message.equalsIgnoreCase("e") || message.equalsIgnoreCase("exit") || message.length() != 0));
+            } while(!(message.equalsIgnoreCase("e") || message.equalsIgnoreCase("exit") || message.length() == 0));
         } catch (SocketException se) {
             System.err.println("Error: creating UDP socket.");
             se.printStackTrace();
