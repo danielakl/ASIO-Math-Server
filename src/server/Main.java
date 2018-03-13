@@ -57,7 +57,7 @@ public final class Main {
                         invalidMode = true;
                         break;
                 }
-            } while(invalidMode);
+            } while (invalidMode);
 
             // Enter new port.
             boolean invalidPort;

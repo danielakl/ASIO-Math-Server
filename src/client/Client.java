@@ -103,7 +103,8 @@ public final class Client {
                 socket.receive(packet);
                 String response = new String(packet.getData(), 0, packet.getLength()).trim();
                 System.out.println("Answer: " + response + "\n");
-            } while(!(message.equalsIgnoreCase("e") || message.equalsIgnoreCase("exit") || message.length() == 0));
+            }
+            while (!(message.equalsIgnoreCase("e") || message.equalsIgnoreCase("exit") || message.length() == 0));
         } catch (SocketException se) {
             System.err.println("Error: creating UDP socket.");
             se.printStackTrace();
@@ -116,7 +117,7 @@ public final class Client {
     private static void tlsClient() {
         /* From: http://java-buddy.blogspot.com/ */
         SSLSocketFactory sslSocketFactory =
-                (SSLSocketFactory)SSLSocketFactory.getDefault();
+                (SSLSocketFactory) SSLSocketFactory.getDefault();
         try {
             Socket socket = sslSocketFactory.createSocket("localhost", port);
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -124,10 +125,10 @@ public final class Client {
                          new BufferedReader(
                                  new InputStreamReader(socket.getInputStream()))) {
                 Scanner scanner = new Scanner(System.in);
-                while(true){
+                while (true) {
                     System.out.println("Enter something:");
                     String inputLine = scanner.nextLine();
-                    if(inputLine.equals("q")){
+                    if (inputLine.equals("q")) {
                         break;
                     }
 

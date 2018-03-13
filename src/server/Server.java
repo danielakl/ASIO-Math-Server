@@ -5,7 +5,8 @@ public abstract class Server {
 
     protected int port;
 
-    public Server() { }
+    public Server() {
+    }
 
     public Server(int port) {
         if (port < 0 || port > 65535) {
@@ -16,6 +17,7 @@ public abstract class Server {
 
     /**
      * Sets the port the server will listen to.
+     *
      * @param port - the port to set.
      * @return true if the given port was within the valid range of 0 to 65535.
      */
