@@ -1,5 +1,6 @@
 package server;
 
+import javax.net.ssl.SSLServerSocketFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,7 +9,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.net.ssl.SSLServerSocketFactory;
 
 public final class TLSServer extends Server {
     TLSServer(int port) {
@@ -19,7 +19,7 @@ public final class TLSServer extends Server {
     public void start() {
         /* From: http://java-buddy.blogspot.com/ */
         SSLServerSocketFactory sslServerSocketFactory =
-                (SSLServerSocketFactory)SSLServerSocketFactory.getDefault();
+                (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
 
         try {
             ServerSocket sslServerSocket =
@@ -35,7 +35,7 @@ public final class TLSServer extends Server {
                          new BufferedReader(
                                  new InputStreamReader(socket.getInputStream()))) {
                 String line;
-                while((line = bufferedReader.readLine()) != null){
+                while ((line = bufferedReader.readLine()) != null) {
                     System.out.println(line);
                     out.println(line);
                 }
